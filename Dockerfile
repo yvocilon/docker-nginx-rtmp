@@ -1,5 +1,5 @@
 ARG NGINX_VERSION=1.18.0
-ARG NGINX_RTMP_VERSION=1.2.1
+ARG NGINX_RTMP_VERSION=1.1.7.10
 ARG FFMPEG_VERSION=4.3.1
 
 
@@ -36,14 +36,14 @@ RUN cd /tmp && \
 
 # Get nginx-rtmp module.
 RUN cd /tmp && \
-  wget https://github.com/arut/nginx-rtmp-module/archive/v${NGINX_RTMP_VERSION}.tar.gz && \
-  tar zxf v${NGINX_RTMP_VERSION}.tar.gz && rm v${NGINX_RTMP_VERSION}.tar.gz
+  wget https://github.com/sergey-dryabzhinsky/nginx-rtmp-module/archive/dev.tar.gz && \
+  tar zxf dev.tar.gz && rm dev.tar.gz
 
 # Compile nginx with nginx-rtmp module.
 RUN cd /tmp/nginx-${NGINX_VERSION} && \
   ./configure \
   --prefix=/usr/local/nginx \
-  --add-module=/tmp/nginx-rtmp-module-${NGINX_RTMP_VERSION} \
+  --add-module=/tmp/nginx-rtmp-module-dev \
   --conf-path=/etc/nginx/nginx.conf \
   --with-threads \
   --with-file-aio \
